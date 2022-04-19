@@ -42,7 +42,7 @@ function searchByAddress(address){
     if (!address) return
     const geoAddress = 'address=' +address.split(' ').join('+')
     getGeoLocation(geoAddress)
-        // .then(res => )
+        // .then()
 }
 
 function _connectGoogleApi() {
@@ -60,8 +60,8 @@ function _connectGoogleApi() {
 }
 
 function getGeoLocation(val) {
-    var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&${KEY}` //'latlng=40.714224,-73.961452'
     const KEY = 'AIzaSyCh7uEfaluv0jigSn1ekRejf2X82OlYxP0'
+    var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&key=${KEY}` //'latlng=40.714224,-73.961452'
     return axios.get(url)
         .then(res => res.data)
 }
