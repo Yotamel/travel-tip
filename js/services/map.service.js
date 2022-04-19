@@ -5,7 +5,8 @@ export const mapService = {
     addMarker,
     panTo,
     searchByAddress,
-    getGeoLocation
+    getGeoLocation,
+    getSelectedLocation
 }
 
 
@@ -78,4 +79,8 @@ function getGeoLocation(val) {
     var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&key=${KEY}` //'latlng=40.714224,-73.961452'
     return axios.get(url)
         .then(res => res.data)
+}
+
+function getSelectedLocation() {
+    return gSelectedLocation
 }
