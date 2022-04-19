@@ -12,6 +12,7 @@ window.onGetGeoLocation = onGetGeoLocation
 window.toCurrLocation = toCurrLocation
 window.onMapClick = onMapClick
 window.onCopy = onCopy
+window.goToSavedLocation = goToSavedLocation
 
 
 function onInit() {
@@ -95,4 +96,10 @@ function onMapClick() {
 
 function onCopy(){
     mapService.saveLocation()
+
+}
+    
+function goToSavedLocation() {
+    const savedLocation = document.querySelector('.saved-list').value
+    mapService.searchByAddress(savedLocation)
 }
