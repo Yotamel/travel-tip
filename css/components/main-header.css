@@ -1,0 +1,9 @@
+.main-header{
+    background-color: blueviolet;
+    margin:0 auto;
+    width: 80vw;
+    height: 120px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px
+}

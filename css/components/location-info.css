@@ -1,0 +1,9 @@
+.location-info{
+    margin: 0 auto;
+    padding: 0 30px;
+    width:80vw;
+    height: 90px;
+    background-color: aquamarine;
+    justify-content: space-between;
+    align-items: center;
+}

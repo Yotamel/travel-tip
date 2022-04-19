@@ -9,14 +9,16 @@
 <body>
     <header class="main-header flex">
         <h1 class="logo">TravelTip Starter</h1>
-        <form onsubmit="test(event)" class="location-form">
-        <input placeholder="enter location" type="text">
-        <button class="location-btn">go</button>
-        </form>
-        <button class="my-location-btn">My Location</button>
+        <nav class="navigation-controls flex">
+            <form onsubmit="test(event)" class="location-form">
+                <input placeholder="enter location" type="text">
+                <button class="location-btn">go</button>
+                </form>
+                <button class="my-location-btn">My Location</button>
+        </nav>  
     </header>
 
-    <section class="location-display flex">
+    <section class="location-info flex">
         <p> <span>Location</span>Central Park, New York</p>
         <button class="copy-button">Copy Location</button>
     </section>
@@ -25,12 +27,12 @@
             <div class="weather">weather here</div>
             <div class="location-container">locations here</div>
         </section>
-        <div id="map" style="width: 100%; height: 400px;"></div>
-        <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-        <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
-        <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-        <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
+        <div id="map"></div>
     </main>
+    <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
+    <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
+    <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
+    <button onclick="onPanTo()"class="btn-pan">Pan Map to Tokyo</button>
 
     <p>You are at: <span class="user-pos"></span></p>
     <p>Locations: <span class="locs"></span></p>
