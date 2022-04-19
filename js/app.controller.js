@@ -6,7 +6,7 @@ window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
-window.test = test;
+window.onSubmitSearch = onSubmitSearch;
 
 function onInit() {
     mapService.initMap()
@@ -53,6 +53,7 @@ function onPanTo() {
     mapService.panTo(35.6895, 139.6917);
 }
 
-function test(ev){
+function onSubmitSearch(ev){
     ev.preventDefault()
+    
 }
