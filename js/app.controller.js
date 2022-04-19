@@ -9,6 +9,7 @@ window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onSubmitSearch = onSubmitSearch;
 window.onGetGeoLocation = onGetGeoLocation
+window.getSelectedLocation = getSelectedLocation
 
 function onInit() {
     mapService.initMap()
@@ -66,6 +67,12 @@ function onSubmitSearch(ev){
 }
 
 function renderLocationTitle() {
-    var strHtml = 'hello'
+    var selectedLocation = getSelection()
+    var strHtml = selectedLocation.name
     document.querySelector('.location-title').innerHTML = strHtml
+}
+
+function onMapClick() {
+    document.querySelector('#map')
+    renderLocationTitle()
 }
