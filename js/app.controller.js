@@ -1,12 +1,14 @@
 import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
+
 window.onload = onInit;
 window.onAddMarker = onAddMarker;
 window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onSubmitSearch = onSubmitSearch;
+window.onGetGeoLocation = onGetGeoLocation
 
 function onInit() {
     mapService.initMap()
@@ -14,6 +16,10 @@ function onInit() {
             console.log('Map is ready');
         })
         .catch(() => console.log('Error: cannot init map'));
+}
+
+function onGetGeoLocation() {   // FOR TESTING NEED TO DELETE!!!!
+    mapService.getGeoLocation()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -57,3 +63,10 @@ function onSubmitSearch(ev){
     ev.preventDefault()
     
 }
+
+// function getGeoLocation() {
+//     // return axios.get(url)
+//     // .then()
+//     var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key'
+//     console.log(url);
+// }
