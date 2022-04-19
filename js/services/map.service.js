@@ -6,7 +6,9 @@ export const mapService = {
     panTo,
     searchByAddress,
     getGeoLocation,
-    getSelectedLocation
+    getSelectedLocation,
+    getMap,
+    updateSelectedLocation,
 }
 
 
@@ -25,13 +27,13 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                         center: { lat, lng },
                         zoom: 15
                     })
-            gMap.addListener('click', (mapsMouseEvent) => {
-            const clickedLatLng = mapsMouseEvent.latLng.toJSON()
-            gSelectedLocation.pos = clickedLatLng
-                getGeoLocation(`latlng=${clickedLatLng.lat},${clickedLatLng.lng}`)
-                     .then(res => {gSelectedLocation.name = res.results[0].formatted_address
-                    })
-            })
+            // gMap.addListener('click', (mapsMouseEvent) => {
+            // const clickedLatLng = mapsMouseEvent.latLng.toJSON()
+            // gSelectedLocation.pos = clickedLatLng
+            //     getGeoLocation(`latlng=${clickedLatLng.lat},${clickedLatLng.lng}`)
+            //          .then(res => {gSelectedLocation.name = res.results[0].formatted_address
+            //         })
+            // })
         })
 }
 
@@ -60,6 +62,10 @@ function searchByAddress(address) {
         })
 }
 
+function updateSelectedLocation(value){
+    gSelectedLocation = value
+}
+
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyCh7uEfaluv0jigSn1ekRejf2X82OlYxP0'; //TODO: Enter your API Key
@@ -85,4 +91,8 @@ function getGeoLocation(val) {
 
 function getSelectedLocation() {
     return gSelectedLocation
+}
+
+function getMap() {
+    return gMap
 }

@@ -9,19 +9,20 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onSubmitSearch = onSubmitSearch
 window.onGetGeoLocation = onGetGeoLocation
-window.getSelectedLocation = getSelectedLocation
 window.toCurrLocation = toCurrLocation
+window.onMapClick = onMapClick
+
 
 function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready')
-            // renderLocationTitle()
+                // renderLocationTitle()
         })
         .catch(() => console.log('Error: cannot init map'))
 }
 
-function onGetGeoLocation() {   // FOR TESTING NEED TO DELETE!!!!
+function onGetGeoLocation() { // FOR TESTING NEED TO DELETE!!!!
     mapService.getGeoLocation()
 }
 
@@ -57,27 +58,36 @@ function onGetUserPos() {
             console.log('err!!!', err);
         })
 }
-function onPanTo(lat,lng) {
+
+function onPanTo(lat, lng) {
     console.log('Panning the Map');
     mapService.panTo(lat, lng);
 }
 
-function onSubmitSearch(ev){
+function onSubmitSearch(ev) {
     ev.preventDefault()
     mapService.searchByAddress(document.querySelector('form input').value)
 }
 
-function toCurrLocation(){
-    navigator.geolocation.getCurrentPosition(res => onPanTo(res.coords.latitude,res.coords.longitude))
+function toCurrLocation() {
+    navigator.geolocation.getCurrentPosition(res => onPanTo(res.coords.latitude, res.coords.longitude))
 }
 
-function renderLocationTitle() {
-    var selectedLocation = getSelection()
-    var strHtml = selectedLocation.name
+function renderLocationTitle(name) {
+    const strHtml = `<span>Location:</span> ${name}`
     document.querySelector('.location-title').innerHTML = strHtml
 }
 
 function onMapClick() {
-    document.querySelector('#map')
-    renderLocationTitle()
+    const map = mapService.getMap()
+    map.addListener('click', (mapsMouseEvent) => {
+        const clickedLatLng = mapsMouseEvent.latLng.toJSON()
+        mapService.getGeoLocation(`latlng=${clickedLatLng.lat},${clickedLatLng.lng}`)
+            .then(res => {
+
+                const selectedLocation = {name:res.results[0].formatted_address,latlng:res.results[0].geometry.location}
+                mapService.updateSelectedLocation(selectedLocation)
+                renderLocationTitle(selectedLocation.name)
+            })
+    })
 }
