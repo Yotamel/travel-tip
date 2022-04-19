@@ -8,7 +8,8 @@ window.onPanTo = onPanTo;
 window.onGetLocs = onGetLocs;
 window.onGetUserPos = onGetUserPos;
 window.onSubmitSearch = onSubmitSearch;
-window.onGetGeoLocation = onGetGeoLocation
+window.onGetGeoLocation = onGetGeoLocation,
+window.toCurrLocation = toCurrLocation
 
 function onInit() {
     mapService.initMap()
@@ -55,14 +56,18 @@ function onGetUserPos() {
             console.log('err!!!', err);
         })
 }
-function onPanTo() {
+function onPanTo(lat,lng) {
     console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
+    mapService.panTo(lat, lng);
 }
 
 function onSubmitSearch(ev){
     ev.preventDefault()
     mapService.searchByAddress(document.querySelector('form input').value)
+}
+
+function toCurrLocation(){
+    navigator.geolocation.getCurrentPosition(res => onPanTo(res.coords.latitude,res.coords.longitude))
 }
 
 function renderLocationTitle() {
