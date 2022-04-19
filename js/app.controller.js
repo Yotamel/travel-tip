@@ -11,6 +11,7 @@ window.onSubmitSearch = onSubmitSearch
 window.onGetGeoLocation = onGetGeoLocation
 window.toCurrLocation = toCurrLocation
 window.onMapClick = onMapClick
+window.goToSavedLocation = goToSavedLocation
 
 
 function onInit() {
@@ -90,4 +91,9 @@ function onMapClick() {
                 renderLocationTitle(selectedLocation.name)
             })
     })
+}
+
+function goToSavedLocation() {
+    const savedLocation = document.querySelector('.saved-list').value
+    mapService.searchByAddress(savedLocation)
 }
