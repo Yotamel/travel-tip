@@ -55,5 +55,5 @@ function onPanTo() {
 
 function onSubmitSearch(ev){
     ev.preventDefault()
-    
+    mapService.searchByAddress(document.querySelector('form input').value)
 }

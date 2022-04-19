@@ -1,9 +1,10 @@
-
+'use strict'
 
 export const mapService = {
     initMap,
     addMarker,
-    panTo
+    panTo,
+    searchByAddress
 }
 
 var gMap;
@@ -36,7 +37,12 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng);
 }
 
-
+function searchByAddress(address){
+    if (!address) return
+    const geoAddress = 'address=' +address.split(' ').join('+')
+    getGeoLocation(geoAddress)
+        // .then(res => )
+}
 
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
