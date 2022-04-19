@@ -12,6 +12,7 @@ export const mapService = {
     getMap,
     updateSelectedLocation,
     saveLocation,
+    getSavedLocations
 }
 
 
@@ -90,6 +91,10 @@ function saveLocation(){
     gSavedLocations.push(gSelectedLocation)
     console.log('pushed!', gSavedLocations)
     storageService.save(STORAGE_KEY,gSavedLocations)
+}
+
+function getSavedLocations(){
+    return gSavedLocations
 }
 
 function _connectGoogleApi() {
