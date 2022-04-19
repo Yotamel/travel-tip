@@ -5,6 +5,8 @@ export const mapService = {
     getGeoLocation
 }
 
+
+ var gLatLng = {lat: 10, lng: 10}
 var gMap;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
@@ -17,6 +19,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                     center: { lat, lng },
                     zoom: 15
                 })
+            gMap.addListener('click', () => {})
             console.log('Map!', gMap);
         })
 }
@@ -52,8 +55,8 @@ function _connectGoogleApi() {
 }
 
 function getGeoLocation(val) {
-    var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&${KEY}` //'latlng=40.714224,-73.961452'
     const KEY = 'AIzaSyCh7uEfaluv0jigSn1ekRejf2X82OlYxP0'
+    var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&key=${KEY}` //'latlng=40.714224,-73.961452'
     return axios.get(url)
         .then(res => res.data)
 }

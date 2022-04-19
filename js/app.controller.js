@@ -14,6 +14,7 @@ function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready');
+            // renderLocationTitle()
         })
         .catch(() => console.log('Error: cannot init map'));
 }
@@ -64,9 +65,7 @@ function onSubmitSearch(ev){
     
 }
 
-// function getGeoLocation() {
-//     // return axios.get(url)
-//     // .then()
-//     var url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=40.714224,-73.961452&key'
-//     console.log(url);
-// }
+function renderLocationTitle() {
+    var strHtml = 'hello'
+    document.querySelector('.location-title').innerHTML = strHtml
+}
