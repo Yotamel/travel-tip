@@ -6,25 +6,32 @@ export const mapService = {
     panTo,
     searchByAddress,
     getGeoLocation,
+    getSelectedLocation
 }
 
 
-var gLatLng = {lat: 10, lng: 10}
+var gSelectedLocation = {
+    pos: { lat: null, lng: null },
+    name,
+}
 var gMap;
 
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
-    console.log('InitMap');
     return _connectGoogleApi()
         .then(() => {
-            console.log('google available');
             gMap = new google.maps.Map(
-                document.querySelector('#map'), {
-                    center: { lat, lng },
-                    zoom: 15
-                })
-            gMap.addListener('click', () => {})
-            console.log('Map!', gMap);
+                    document.querySelector('#map'), {
+                        center: { lat, lng },
+                        zoom: 15
+                    })
+            gMap.addListener('click', (mapsMouseEvent) => {
+            const clickedLatLng = mapsMouseEvent.latLng.toJSON()
+            gSelectedLocation.pos = clickedLatLng
+                getGeoLocation(`latlng=${clickedLatLng.lat},${clickedLatLng.lng}`)
+                     .then(res => {gSelectedLocation.name = res.results[0].formatted_address
+                    })
+            })
         })
 }
 
@@ -42,9 +49,9 @@ function panTo(lat, lng) {
     gMap.panTo(laLatLng);
 }
 
-function searchByAddress(address){
+function searchByAddress(address) {
     if (!address) return
-    const geoAddress = 'address=' +address.split(' ').join('+')
+    const geoAddress = 'address=' + address.split(' ').join('+')
     getGeoLocation(geoAddress)
         .then(res => res.results[0])
         .then(res => {
@@ -74,4 +81,8 @@ function getGeoLocation(val) {
     var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&key=${KEY}` //'latlng=40.714224,-73.961452'
     return axios.get(url)
         .then(res => res.data)
+}
+
+function getSelectedLocation() {
+    return gSelectedLocation
 }
