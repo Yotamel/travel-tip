@@ -2,22 +2,23 @@ import { locService } from './services/loc.service.js'
 import { mapService } from './services/map.service.js'
 
 
-window.onload = onInit;
-window.onAddMarker = onAddMarker;
-window.onPanTo = onPanTo;
-window.onGetLocs = onGetLocs;
-window.onGetUserPos = onGetUserPos;
-window.onSubmitSearch = onSubmitSearch;
+window.onload = onInit
+window.onAddMarker = onAddMarker
+window.onPanTo = onPanTo
+window.onGetLocs = onGetLocs
+window.onGetUserPos = onGetUserPos
+window.onSubmitSearch = onSubmitSearch
 window.onGetGeoLocation = onGetGeoLocation
 window.getSelectedLocation = getSelectedLocation
+window.toCurrLocation = toCurrLocation
 
 function onInit() {
     mapService.initMap()
         .then(() => {
-            console.log('Map is ready');
+            console.log('Map is ready')
             // renderLocationTitle()
         })
-        .catch(() => console.log('Error: cannot init map'));
+        .catch(() => console.log('Error: cannot init map'))
 }
 
 function onGetGeoLocation() {   // FOR TESTING NEED TO DELETE!!!!
@@ -34,7 +35,7 @@ function getPosition() {
 
 function onAddMarker() {
     console.log('Adding a marker');
-    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 });
+    mapService.addMarker({ lat: 32.0749831, lng: 34.9120554 })
 }
 
 function onGetLocs() {
@@ -56,14 +57,18 @@ function onGetUserPos() {
             console.log('err!!!', err);
         })
 }
-function onPanTo() {
+function onPanTo(lat,lng) {
     console.log('Panning the Map');
-    mapService.panTo(35.6895, 139.6917);
+    mapService.panTo(lat, lng);
 }
 
 function onSubmitSearch(ev){
     ev.preventDefault()
     mapService.searchByAddress(document.querySelector('form input').value)
+}
+
+function toCurrLocation(){
+    navigator.geolocation.getCurrentPosition(res => onPanTo(res.coords.latitude,res.coords.longitude))
 }
 
 function renderLocationTitle() {

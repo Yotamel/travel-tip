@@ -15,7 +15,7 @@ var gSelectedLocation = {
     name,
 }
 var gMap;
-var gSearch;
+
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     return _connectGoogleApi()
@@ -55,8 +55,8 @@ function searchByAddress(address) {
     getGeoLocation(geoAddress)
         .then(res => res.results[0])
         .then(res => {
-            gSearch = {name:res['formatted_address'],latlng:res.geometry.location}
-            panTo(gSearch.latlng.lat, gSearch.latlng.lng)
+            const latlng = {lat:res.geometry.location.lat,lng:res.geometry.location.lng}
+            panTo(latlng.lat, latlng.lng)
         })
 }
 
@@ -73,6 +73,8 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
+
+
 
 function getGeoLocation(val) {
     const KEY = 'AIzaSyCh7uEfaluv0jigSn1ekRejf2X82OlYxP0'
