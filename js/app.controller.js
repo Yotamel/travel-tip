@@ -12,6 +12,7 @@ window.onGetGeoLocation = onGetGeoLocation
 window.toCurrLocation = toCurrLocation
 window.onMapClick = onMapClick
 window.goToSavedLocation = goToSavedLocation
+window.delSavedLocation = delSavedLocation
 
 
 function onInit() {
@@ -96,4 +97,11 @@ function onMapClick() {
 function goToSavedLocation() {
     const savedLocation = document.querySelector('.saved-list').value
     mapService.searchByAddress(savedLocation)
+    renderLocationTitle()
+}
+
+function delSavedLocation () {
+    const savedList = document.querySelectorAll('option')
+    console.log(savedList);
+    renderList()
 }
