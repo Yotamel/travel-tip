@@ -20,14 +20,14 @@
 
     <section class="location-info flex">
         <p class="location-title"><span>Location:</span> Central Park, New York</p>
-        <button class="copy-button">Copy Location</button>
+        <button class="copy-button" onclick="onCopy()">Copy Location</button>
     </section>
 
     <main class="main-content flex">
         <section class="main-left flex-col">
             <div class="weather">weather here</div>
             <div class="location-container">
-                <input list="saved-list" type="text" placeholder="Saved locations">
+                <input class="saved-list" list="saved-list" type="text" placeholder="Saved locations">
                 <datalist id="saved-list">
                     <option value="one">
                     <option value="two">
