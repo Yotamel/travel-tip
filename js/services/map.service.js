@@ -14,6 +14,7 @@ var gSelectedLocation = {
     name,
 }
 var gMap;
+var gSearch;
 
 function initMap(lat = 32.0749831, lng = 34.9120554) {
     return _connectGoogleApi()
@@ -51,6 +52,11 @@ function searchByAddress(address) {
     if (!address) return
     const geoAddress = 'address=' + address.split(' ').join('+')
     getGeoLocation(geoAddress)
+        .then(res => res.results[0])
+        .then(res => {
+            gSearch = {name:res['formatted_address'],latlng:res.geometry.location}
+            panTo(gSearch.latlng.lat, gSearch.latlng.lng)
+        })
 }
 
 function _connectGoogleApi() {
