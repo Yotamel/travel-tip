@@ -11,8 +11,10 @@ window.onSubmitSearch = onSubmitSearch
 window.onGetGeoLocation = onGetGeoLocation
 window.toCurrLocation = toCurrLocation
 window.onMapClick = onMapClick
+window.onCopy = onCopy
 window.goToSavedLocation = goToSavedLocation
 window.delSavedLocation = delSavedLocation
+window.renderList = renderList
 
 
 function onInit() {
@@ -22,6 +24,7 @@ function onInit() {
                 // renderLocationTitle()
         })
         .catch(() => console.log('Error: cannot init map'))
+    renderList()
 }
 
 function onGetGeoLocation() { // FOR TESTING NEED TO DELETE!!!!
@@ -80,6 +83,14 @@ function renderLocationTitle(name) {
     document.querySelector('.location-title').innerHTML = strHtml
 }
 
+function renderList(){
+    const locations = mapService.getSavedLocations()
+    const innerHTML = locations.map(location => {
+        return `<option value="${location.name}">`
+    }).join('')
+    document.querySelector('datalist').innerHTML = innerHTML
+}
+
 function onMapClick() {
     const map = mapService.getMap()
     map.addListener('click', (mapsMouseEvent) => {
@@ -94,6 +105,12 @@ function onMapClick() {
     })
 }
 
+function onCopy(){
+    mapService.saveLocation()
+    renderList()
+
+}
+
 function goToSavedLocation() {
     const savedLocation = document.querySelector('.saved-list').value
     mapService.searchByAddress(savedLocation)
@@ -101,7 +118,7 @@ function goToSavedLocation() {
 }
 
 function delSavedLocation () {
-    const savedList = document.querySelectorAll('option')
-    console.log(savedList);
+    const savedLocation = document.querySelector('.saved-list').value
+    mapService.deleteSavedLocation(savedLocation)
     renderList()
 }

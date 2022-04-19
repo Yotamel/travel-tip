@@ -1,5 +1,7 @@
 'use strict'
 
+import { storageService } from "./storage.service.js"
+
 export const mapService = {
     initMap,
     addMarker,
@@ -9,13 +11,17 @@ export const mapService = {
     getSelectedLocation,
     getMap,
     updateSelectedLocation,
+    saveLocation,
+    getSavedLocations,
+    deleteSavedLocation
 }
 
 
-var gSelectedLocation = {
-    pos: { lat: null, lng: null },
-    name,
-}
+var gSelectedLocation;
+
+
+const STORAGE_KEY = 'locationDB'
+var gSavedLocations = storageService.load(STORAGE_KEY) || []
 var gMap;
 
 
@@ -66,6 +72,40 @@ function updateSelectedLocation(value){
     gSelectedLocation = value
 }
 
+function getGeoLocation(val) {
+    const KEY = 'AIzaSyCh7uEfaluv0jigSn1ekRejf2X82OlYxP0'
+    var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&key=${KEY}` //'latlng=40.714224,-73.961452'
+    return axios.get(url)
+        .then(res => res.data)
+}
+
+function getSelectedLocation() {
+    return gSelectedLocation
+}
+
+function getMap() {
+    return gMap
+}
+
+function saveLocation(){
+    if(!gSelectedLocation) return
+    gSavedLocations.push(gSelectedLocation)
+    console.log('pushed!', gSavedLocations)
+    storageService.save(STORAGE_KEY,gSavedLocations)
+}
+
+function getSavedLocations(){
+    return gSavedLocations
+}
+
+function deleteSavedLocation(savedLocationName) {
+    console.log('savedLocationName',savedLocationName)
+    console.log('gSavedLocations',gSavedLocations);
+    const idx = gSavedLocations.findIndex((location)=> location.name === savedLocationName)
+    gSavedLocations.splice(idx, 1)
+    storageService.save(STORAGE_KEY, gSavedLocations)
+}
+
 function _connectGoogleApi() {
     if (window.google) return Promise.resolve()
     const API_KEY = 'AIzaSyCh7uEfaluv0jigSn1ekRejf2X82OlYxP0'; //TODO: Enter your API Key
@@ -81,18 +121,3 @@ function _connectGoogleApi() {
 }
 
 
-
-function getGeoLocation(val) {
-    const KEY = 'AIzaSyCh7uEfaluv0jigSn1ekRejf2X82OlYxP0'
-    var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&key=${KEY}` //'latlng=40.714224,-73.961452'
-    return axios.get(url)
-        .then(res => res.data)
-}
-
-function getSelectedLocation() {
-    return gSelectedLocation
-}
-
-function getMap() {
-    return gMap
-}
