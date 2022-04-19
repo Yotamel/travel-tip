@@ -19,9 +19,10 @@
     </header>
 
     <section class="location-info flex">
-        <p> <span>Location</span>Central Park, New York</p>
+        <p class="location-title"><span>Location</span>Central Park, New York</p>
         <button class="copy-button">Copy Location</button>
     </section>
+
     <main class="main-content flex">
         <section class="main-left flex-col">
             <div class="weather">weather here</div>
@@ -35,8 +36,9 @@
                 </datalist>
             </div>
         </section>
-        <div id="map"></div>
+        <div onchange="onMapMove()" id="map"></div>
     </main>
+
     <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
     <button onclick="onGetUserPos()" class="btn-user-pos">Get User Position</button>
     <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>

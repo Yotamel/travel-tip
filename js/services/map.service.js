@@ -8,6 +8,8 @@ export const mapService = {
     getGeoLocation
 }
 
+
+ var gLatLng = {lat: 10, lng: 10}
 var gMap;
 var gSearch;
 
@@ -21,6 +23,7 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
                     center: { lat, lng },
                     zoom: 15
                 })
+            gMap.addListener('click', () => {})
             console.log('Map!', gMap);
         })
 }

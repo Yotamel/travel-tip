@@ -14,6 +14,7 @@ function onInit() {
     mapService.initMap()
         .then(() => {
             console.log('Map is ready');
+            // renderLocationTitle()
         })
         .catch(() => console.log('Error: cannot init map'));
 }
@@ -62,4 +63,9 @@ function onPanTo() {
 function onSubmitSearch(ev){
     ev.preventDefault()
     mapService.searchByAddress(document.querySelector('form input').value)
+}
+
+function renderLocationTitle() {
+    var strHtml = 'hello'
+    document.querySelector('.location-title').innerHTML = strHtml
 }
