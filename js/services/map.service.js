@@ -4,7 +4,8 @@ export const mapService = {
     initMap,
     addMarker,
     panTo,
-    searchByAddress
+    searchByAddress,
+    getGeoLocation
 }
 
 var gMap;
@@ -16,9 +17,9 @@ function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('google available');
             gMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
+                    center: { lat, lng },
+                    zoom: 15
+                })
             console.log('Map!', gMap);
         })
 }
@@ -56,4 +57,11 @@ function _connectGoogleApi() {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
+}
+
+function getGeoLocation(val) {
+    var url = `https://maps.googleapis.com/maps/api/geocode/json?${val}&${KEY}` //'latlng=40.714224,-73.961452'
+    const KEY = 'AIzaSyCh7uEfaluv0jigSn1ekRejf2X82OlYxP0'
+    return axios.get(url)
+        .then(res => res.data)
 }
